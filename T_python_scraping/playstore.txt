@@ -1,0 +1,120 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+from datetime import datetime
+import time
+import csv
+
+
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
+options = webdriver.ChromeOptions()
+# options.add_argument("--headless")
+options.add_argument(f"user-agent={user_agent}")
+
+browser = webdriver.Chrome(
+    service=Service(ChromeDriverManager().install()), options=options
+)
+browser.maximize_window()
+
+target = "카카오톡"
+filename = f"구글플레이스토어_{target}_사용자리뷰_{datetime.today().strftime('%Y_%m_%d')}.csv"
+f = open(filename, "w", encoding="utf-8-sig", newline="")
+writer = csv.writer(f)
+title = "날짜,평점,내용".split(",")
+writer.writerow(title)
+
+url = "https://play.google.com/store/apps/details?id=com.kakao.talk"
+max_height = 10000
+browser.get(url)
+
+
+def scroll_down(modal):
+    try:
+        old_height = browser.execute_script("return arguments[0].scrollHeight", modal)
+
+        while True:
+            browser.execute_script(
+                "arguments[0].scrollTo(0, arguments[0].scrollHeight);", modal
+            )
+
+            time.sleep(1)
+
+            browser.execute_script(
+                "arguments[0].scrollTo(0, arguments[0].scrollHeight-100);", modal
+            )
+
+            time.sleep(1)
+
+            new_height = browser.execute_script("return arguments[0].scrollHeight", modal)
+
+            try:
+                all_review_button = browser.find_element(
+                    By.CSS_SELECTOR,
+                    "#ow94 button.VfPpkd-Bz112c-LgbsSe.yHy1rc.eT1oJ.QDwDD.mN1ivc.VxpoF",
+                ).click()
+            except:
+                if new_height == old_height or new_height >= max_height:
+                    print("스크롤 완료")
+                    break
+
+                old_height = new_height
+        print(new_height)
+
+    except Exception as e:
+        print("스크롤링 도중 에러 발생: ", e)
+
+
+all_review_button = '//*[@id="yDmH0d"]/c-wiz[2]/div/div/div[1]/div[2]/div/div[1]/div[1]/c-wiz[4]/section/header/div/div[2]/button'
+
+while True:
+    try:
+        WebDriverWait(browser, 5).until(
+            EC.presence_of_element_located((By.XPATH, all_review_button))
+        )
+        print("리뷰 모두 보기 버튼 발견")
+        browser.find_element(By.XPATH, all_review_button).click()
+        print("리뷰 모두 보기 버튼 클릭")
+        break
+    except Exception as e:
+        print("리뷰 모두 보기 버튼 찾는 도중 에러 발생: ", e)
+
+try:
+    WebDriverWait(browser, 5).until(
+        EC.presence_of_element_located((By.CLASS_NAME, "VfPpkd-P5QLlc"))
+    )
+    print("리뷰 모두 보기 모달 발견")
+except Exception as e:
+    print("리뷰 모두 보기 모달 찾는 도중 에러 발생: ", e)
+
+modal = WebDriverWait(browser, 3).until(
+    EC.presence_of_element_located((By.CLASS_NAME, "fysCi"))
+)
+
+scroll_down(modal)
+soup = BeautifulSoup(browser.page_source, "lxml")
+browser.quit()
+
+reviews = soup.find_all(class_="RHo1pe")
+num = 0
+
+for review in reviews:
+    num += 1
+
+    date = review.find(class_="bp9Aid").text
+    user_name = review.find(class_="X5PpBb").text
+    rating = review.find(class_="iXRFPc")["aria-label"][10]
+    content = review.find(class_="h3YV2d").text
+
+    print("id:", num)
+    print("date:", date)
+    print("rating:", rating)
+    print("content:", content)
+    print("#" * 100)
+
+    writer.writerow([date, rating, content])
+
+f.close()
