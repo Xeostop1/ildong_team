@@ -28,7 +28,7 @@ browser.execute_cdp_cmd(
 
 url = "https://www.youtube.com/watch?v=WZTOqWmq70I"
 loading_duration = 2
-max_height = 7000
+max_height = 145636.359375
 
 browser.get(url)
 browser.maximize_window()
@@ -167,7 +167,7 @@ def click_more_comments_button(more_comment_blocks):
 scroll_down()
 click_more_comments_button(find_more_comments_blocks())
 
-filename = "유튜브 코멘트.csv"
+filename = "biovita_coment.csv"
 f = open(filename, "w", encoding="utf-8-sig", newline="")
 writer = csv.writer(f)
 title = "작성일,댓글 유형,좋아요 수,댓글 내용".split(",")
