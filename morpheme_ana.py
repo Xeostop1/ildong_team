@@ -1,4 +1,5 @@
 import MeCab
+import pandas as pd
 from collections import Counter
 
 
@@ -38,3 +39,10 @@ print(filtered_text)
 top_200_words = top_n_words(filtered_text, 200)
 for word, count in top_200_words:
     print(f"{word}: {count}")
+
+
+# 데이터 프레임 생성
+df = pd.DataFrame(top_200_words, columns=['Word', 'Count'])
+
+# 데이터 프레임을 엑셀 파일로 저장
+df.to_excel('top_200_words.xlsx', index=False)
