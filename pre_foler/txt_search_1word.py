@@ -21,7 +21,7 @@ def find_cells_with_one_word(input_file, output_file, word):
 
 
 # 사용 예
-word = "나스"
+word = "떠나다"
 input_file = "./pre_foler/gimi_origin.xlsx"  # 원본 엑셀 파일 경로
 output_file = f"{word}.txt"  # 출력 TXT 파일 경로
 
