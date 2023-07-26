@@ -24,9 +24,9 @@ def find_cells_with_two_words(input_file, output_file, word1, word2):
 
 
 # 사용 예
-word1 = "플럼"
-word2 = "크림"
-input_file = "gimi_origin.xlsx"  # 원본 엑셀 파일 경로
+word1 = "협찬"
+word2 = "기미"
+input_file = "./pre_foler/gimi_origin.xlsx"  # 원본 엑셀 파일 경로
 # output_file = f"{word1}_{word2}.xlsx"  # 출력 엑셀 파일 경로
 output_file = f"{word1}_{word2}.txt"  # 출력 엑셀 파일 경로
 
