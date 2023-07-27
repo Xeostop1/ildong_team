@@ -11,8 +11,9 @@ def top_n_words(text: str, n: int) -> list[tuple[str, int]]:
 
 
 def pos_filter(text: str, target_pos: list[str]) -> str:
+    url='C:\mecab\mecab-ko-dic'
     mecab = MeCab.Tagger(
-        'C:\\Users\\coms\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\mecab-0.996-ko-0.9.2\\mecab-ko-dic')
+        url)
     mecab.parse("")  # 버그로 형태소 분석 시 첫 문장을 제대로 인식하지 못하는 문제 해결
     nodes = mecab.parseToNode(text)
     result = []
@@ -73,6 +74,6 @@ top_200_ngrams = top_n_ngrams(ngrams, 200)
 for ngram, count in top_200_ngrams:
     # print(f"{ngram}: {count}")
 
-    # Create a DataFrame and save to Excel
+    # 엑셀 엔그램
     df_ngrams = pd.DataFrame(top_200_ngrams, columns=['N-gram', 'Count'])
 df_ngrams.to_excel('ngrams_top_200.xlsx', index=False)
