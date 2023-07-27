@@ -41,11 +41,13 @@ print(d2.dtype)
 print(d2[:5])
 
 
-# 판다스 read_csv 제일 간단하네!
+# 판다스 read_csv 제일 간단하네!***주로 이거사용 
 d3 = pd.read_csv(filename)
 print(d3.dtypes)
 d3.head()
 
-#피클로 저장하기
-
-
+# 피클로 dlfrdjdhrl 
+with open("./appliedStatistics/load_pickle.pickle", "rb") as f:
+    d4 = pickle.load(f)
+print(d4.dtypes)
+d4.head()
