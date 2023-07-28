@@ -21,9 +21,13 @@ def find_cells_with_one_word(input_file, output_file, word):
 
 
 # 사용 예
-word = "약국"
-input_file = "./pre_foler/gimi_origin.xlsx"  # 원본 엑셀 파일 경로
-output_file = f"{word}.txt"  # 출력 TXT 파일 경로
+word = "도미나정"
+# 원본 엑셀 파일 경로
+# input_file = "./pre_folder/gul_origin.xlsx"  
+# input_file = "C:\\Users\\user\\Desktop\\BigdataClass\\git clone\\ildong_team\\pre_folder\\gul_origin.xlsx"  
+input_file = "C:\\Users\\user\\Desktop\\BigdataClass\\git clone\\ildong_team\\pre_folder\\gimi_origin.xlsx.xlsx"  
+# 출력 TXT 파일 경로
+output_file = f"{word}.txt"  
 
 find_cells_with_one_word(input_file, output_file, word)
 print("완료")

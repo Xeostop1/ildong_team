@@ -21,9 +21,10 @@ def find_cells_with_two_words(input_file, output_file, word1, word2):
 
 
 # 사용 예
-word1 = "뒤집"
-word2 = "기미"  
-input_file = "./pre_foler/gimi_origin.xlsx"  #원본 엑셀 파일 경로
+word1 = "엑소"
+word2 = "리비"  
+# input_file = "./pre_foler/gul_origin.xlsx"  #원본 엑셀 파일 경로
+input_file = "C:\\Users\\user\\Desktop\\BigdataClass\\git clone\\ildong_team\\pre_folder\\gul_origin.xlsx"  
 output_file = f"{word1}_{word2}.txt"  # 출력 TXT 파일 경로
 
 find_cells_with_two_words(input_file, output_file, word1, word2)
