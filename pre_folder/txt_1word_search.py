@@ -21,7 +21,7 @@ def find_cells_with_one_word(input_file, output_file, word):
 
 
 
-word = "남편"
+word = "흑자"
 # 원본 엑셀 파일 경로
 # input_file = "./pre_folder/gul_origin.xlsx"  
 input_file = "C:\\Users\\user\\Desktop\\BigdataClass\\git clone\\ildong_team\\pre_folder\\gimi_origin.xlsx"  

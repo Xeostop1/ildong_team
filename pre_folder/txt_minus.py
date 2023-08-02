@@ -30,8 +30,8 @@ def find_cells_with_words(input_file, output_file, main_word, sub_word):
 
 
 # 사용 예
-main_word = "아이"
-sub_word = "아이크림"
+main_word = "흑자"
+sub_word = "기미"
 input_file = "C:\\Users\\user\\Desktop\\BigdataClass\\git clone\\ildong_team\\pre_folder\\gimi_origin.xlsx"
 output_file = f"{main_word}-{sub_word}.txt"
 
